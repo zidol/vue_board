@@ -1,4 +1,4 @@
-# vue-til
+# Practice Vue-Board
 
 ## Project setup
 ```

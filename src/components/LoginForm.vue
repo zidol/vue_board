@@ -57,8 +57,17 @@ export default {
           password: this.password,
         };
         const { data } = await loginUser(userData);
-        // console.log(data.user.username);
-        this.lopMessage = `${data.user.username} 님 환영합니다.`;
+        console.log(data.user.username);
+        this.$store.commit('setUsername', data.user.username); //mutation 호출
+        // this.lopMessage = `${data.user.username} 님 환영합니다.`;
+        this.$router.push('/main'); // html 레벨 : <rotuer-link to="/"></rotuer-link> 와 같은것
+        /*
+        //ex) 쿼리 파라미터 
+        this.$router.push({
+          path: 'main',
+          query: { plan: 'private', aa: 'aa' },
+        });
+        */
       } catch (error) {
         //에러 헨들링
         // console.log(error.response.data);
