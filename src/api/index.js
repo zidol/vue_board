@@ -36,4 +36,9 @@ function fectchPosts() {
   return instance.get('posts');
 }
 
-export { registerUser, loginUser, fectchPosts };
+//게시글 등록 api
+function createPost(postData) {
+  return instance.post('posts', postData);
+}
+
+export { registerUser, loginUser, fectchPosts, createPost };

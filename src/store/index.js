@@ -1,12 +1,20 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {
+  getAuthFromCookie,
+  getUserFromCookie,
+  saveAuthToCookie,
+  saveUserToCookie,
+} from '@/utils/cookies';
+import { loginUser } from '@/api/index';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    username: '',
-    token: '',
+    //쿠키에서 받아오는 정보들 없으면 공백
+    username: getUserFromCookie() || '',
+    token: getAuthFromCookie() || '',
   },
   //computed와 같음, state 값이 변경될때 발동
   getters: {
@@ -24,6 +32,18 @@ export default new Vuex.Store({
     },
     setToken(state, token) {
       state.token = token;
+    },
+  },
+  actions: {
+    async LOGIN({ commit }, userData) {
+      const { data } = await loginUser(userData);
+      console.log(data.token);
+      commit('setToken', data.token);
+      commit('setUsername', data.user.username); //mutation 호출
+      //브라우저 저장소에 토큰, 유저네임 저장
+      saveAuthToCookie(data.token);
+      saveUserToCookie(data.user.username);
+      return data;
     },
   },
 });
