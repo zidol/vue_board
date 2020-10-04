@@ -3,6 +3,7 @@
     <div>
       <router-link to="/" class="logo">
         Board
+        <span v-if="isUserLogin">by {{ $store.state.username }}</span>
       </router-link>
     </div>
     <div class="navigations">
@@ -10,8 +11,9 @@
       <!-- 스크립트단 거치지 않고 바로 store 접근 -->
       <!-- <template v-if="$store.getters.isLogin"> -->
       <template v-if="isUserLogin">
-        <span class="username">{{ $store.state.username }}</span>
-        <a href="javascript:;" @click="logoutUser">Logout</a>
+        <a href="javascript:;" @click="logoutUser" class="logout-button">
+          Logout
+        </a>
       </template>
       <!-- 2 -->
       <template v-else>
@@ -71,6 +73,9 @@ a.logo {
   position: fixed;
   top: 0;
   width: 100%;
+}
+.logout-button {
+  font-size: 14px;
 }
 a.router-link-exact-active {
   color: white;
