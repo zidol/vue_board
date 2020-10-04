@@ -11,4 +11,9 @@ function createPost(postData) {
   return posts.post('/', postData);
 }
 
-export { fectchPosts, createPost };
+//게시글 삭제하는 API
+function deletePost(postId) {
+  return posts.delete(postId);
+}
+
+export { fectchPosts, createPost, deletePost };
