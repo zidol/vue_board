@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { fectchPosts } from '@/api/index';
+import { fectchPosts } from '@/api/posts';
 import PostListItem from '@/components/posts/PostListItem.vue';
 import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 export default {
