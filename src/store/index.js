@@ -30,14 +30,20 @@ export default new Vuex.Store({
     clearUsername(state) {
       state.username = '';
     },
+    clearToken(state) {
+      state.token = '';
+    },
     setToken(state, token) {
       state.token = token;
     },
   },
   actions: {
+    //구조 분해 문법(Destructuring)
     async LOGIN({ commit }, userData) {
+      // async LOGIN(context, userData) {
       const { data } = await loginUser(userData);
       console.log(data.token);
+      // context.commit('setToken', data.token);
       commit('setToken', data.token);
       commit('setUsername', data.user.username); //mutation 호출
       //브라우저 저장소에 토큰, 유저네임 저장

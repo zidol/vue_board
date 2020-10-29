@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store/index';
 // import LoginPage from '@/views/LoginPage.vue';
 // import SignupPage from '@/views/SignupPage.vue';
 
 Vue.use(VueRouter); //플러그인 사용하기 위한 초기화작업
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history', //url # 제거 하기 위해
   routes: [
     {
@@ -24,14 +25,25 @@ export default new VueRouter({
     {
       path: '/main',
       component: () => import('@/views/MainPage.vue'),
+      meta: {
+        auth: true,
+      },
     },
     {
       path: '/add',
       component: () => import('@/views/PostAddPage.vue'),
+      //라우트 네비게이션 가드
+      //a메타가 있으며 auth 가 true일때만 페이지 이동 가능(auth : 임의로 이름지은것)
+      meta: {
+        auth: true,
+      },
     },
     {
       path: '/post/:id',
       component: () => import('@/views/PostEditPage.vue'),
+      meta: {
+        auth: true,
+      },
     },
     {
       path: '*',
@@ -39,3 +51,15 @@ export default new VueRouter({
     },
   ],
 });
+
+//to: 이동할 페이지, from: 이동 전 현재페이진, next: 이동할때 호출하는 api
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth && !store.getters.isLogin) {
+    console.log('인증이 필요합니다.');
+    next('/login');
+    return;
+  }
+  next();
+});
+
+export default router;

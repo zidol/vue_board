@@ -4,7 +4,8 @@
       {{ postItem.title }}
     </div>
     <div class="post-contents">
-      {{ postItem.contents }}
+      <!-- {{ postItem.contents }} -->
+      <p v-html="postItem.contents"></p>
     </div>
     <div class="post-time">
       {{ postItem.createdAt | formatDate }}
