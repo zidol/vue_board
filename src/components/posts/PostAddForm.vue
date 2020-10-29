@@ -9,7 +9,12 @@
         </div>
         <div>
           <label for="contents">Contents: </label>
-          <textarea id="contents" type="text" rows="5" v-model="contents" />
+          <!-- <textarea id="contents" type="text" rows="5" v-model="contents" /> -->
+          <quill-editor
+            ref="myQuillEditor"
+            v-model="contents"
+            :options="editorOption"
+          />
           <p v-if="!isContentsValid" class="validation-text warning">
             Contents length must be less than 200
           </p>
@@ -25,13 +30,23 @@
 
 <script>
 import { createPost } from '@/api/posts';
+import { quillEditor } from 'vue-quill-editor';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 export default {
   data() {
     return {
       title: '',
       contents: '',
       logMessage: '',
+      editorOption: {
+        placeholder: '내용 입력하세요.',
+      },
     };
+  },
+  components: {
+    quillEditor,
   },
   computed: {
     isContentsValid() {
