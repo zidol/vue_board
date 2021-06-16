@@ -10,6 +10,13 @@ const router = new VueRouter({
   mode: 'history', //url # 제거 하기 위해
   routes: [
     {
+      path: '/map',
+      component: () => import('@/views/mapPage.vue'),
+      meta: {
+        auth: true,
+      },
+    },
+    {
       path: '/',
       redirect: '/login', //localhost:8080 으로 접속 시 로그인 페이지로 리다이렉트
     },

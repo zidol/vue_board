@@ -11,6 +11,7 @@
       <!-- 스크립트단 거치지 않고 바로 store 접근 -->
       <!-- <template v-if="$store.getters.isLogin"> -->
       <template v-if="isUserLogin">
+        <router-link to="/map">지도</router-link>
         <a href="javascript:;" @click="logoutUser" class="logout-button">
           Logout
         </a>
